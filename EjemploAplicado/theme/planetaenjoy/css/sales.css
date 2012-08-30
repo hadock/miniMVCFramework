@@ -1,0 +1,154 @@
+.form #rut{
+    width: 90px;
+}
+
+.form .action-buttons{
+    float: left;
+    margin-left: 10px;
+}
+.search{
+    display: none;
+}
+
+.form span{
+    float: left;
+}
+.clientInfo{
+    display: none;
+}
+
+.form #searchSeller{
+    width: 164px;
+    margin-bottom: 1px;
+}
+.form #searchAttributes{
+    margin-bottom: 1px;
+    margin-left: 0;
+    width: 600px;
+}
+.form #articleQty{
+    width: 60px;
+    margin-bottom: 1px;
+    text-align: right;
+}
+.searchResult{
+    display: none;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border: 1px solid #BBBBBB;
+    margin-bottom: 10px;
+    float: left;
+    padding-top: 0px;
+    margin-left: 9px;
+    width: 177px;
+    z-index: 2000;
+    position: absolute;
+    margin-top: 25px;
+    overflow: hidden;
+}
+.listResult{
+    list-style: none outside none;
+    padding-left: 0em;
+}
+.dropdown{
+    background: -moz-linear-gradient(center top , #BABABA, #E1E1E1) repeat scroll 0 0 transparent;
+}
+.dropdown:hover, .dropdown span:hover, .dropdown p:hover{
+    background: -moz-linear-gradient(center top , #FAFABA, #E1E1E1) repeat scroll 0 0 transparent;
+    cursor: pointer;
+}
+.selectedSeller{
+    display: none;
+}
+.selectedSeller span{
+    float: none;
+}
+.selectedSeller p{
+    margin-top: 0;
+}
+
+.searchResult2{
+    display: none;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border: 1px solid #BBBBBB;
+    margin-bottom: 10px;
+    float: left;
+    padding-top: 0px;
+    margin-left: 9px;
+    width: 500px;
+    z-index: 2000;
+    position: absolute;
+    margin-top: 28px;
+    overflow: hidden;
+}
+.listResult2{
+    list-style: none outside none;
+    padding-left: 0em;
+}
+.dropdown2{
+    background: -moz-linear-gradient(center top , #BABABA, #E1E1E1) repeat scroll 0 0 transparent;
+    float: left;
+    width: 100%;
+    margin-bottom: 1px;
+    height: 30px;
+}
+.dropdown2:hover{
+    background: -moz-linear-gradient(center top , #FAFABA, #E1E1E1) repeat scroll 0 0 transparent;
+    cursor: pointer;
+}
+.dropdown2 div{
+    margin-left: 5px;
+    margin-right: 5px;
+    float: left;
+}
+.dropdown2 #stock{
+    margin-left: 5px;
+    margin-right: 5px;
+    float: left;
+}
+.cartItems input{
+    width: 50px;
+    margin-bottom: 1px;
+    text-align: right;
+}
+.footAmount span{
+    text-align: right;
+    width: 100%
+}
+#total span{
+    text-align: center;
+    width: 100%;
+}
+.subamount{
+    text-align: center;
+}
+.close-button{
+    width: 29px;
+    height: 29px;
+    float: right;
+}
+.mousehover{
+    width: 29px;
+    height: 29px;
+    float: right;
+    background: url("../images/close-icon.png") no-repeat scroll 0 0 transparent;
+    border: 0px;
+    padding: 0px;
+    cursor: pointer;
+}
+.prepayment_div{
+    display: none;
+}
+#form-sale input{
+    margin-left: 60px;
+    text-align: center;
+    width: 100px;
+}
+#form-sale textarea{
+    width: 130px;
+    margin-left: 50px;
+    height: 60px;
+}
+.btn_modify{
+    float: left;
+    margin-left: 100px
+}

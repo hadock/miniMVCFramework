@@ -1,0 +1,277 @@
+This file describes the usage of the following class:
+	* AbsAtomReader10
+
+
+* class AbsAtomReader10
+	This class can be used to read an ATOM 1.0 xml feed document.
+
+
+* Protected Properties
+	* $_doc
+	* $_loaded
+
+
+* Public Methods
+	* Load( $filePath )
+	* GetBaseTags()
+	* GetEntries( $maxLimit = 0 )
+	* GetAll()
+
+
+
+* final public function Load( $filePath )
+	Loads the specified xml feed and assigns the content to the $_doc variable.
+	It can reside either locally or remotely. You should cache it if your blog doesn't get updated more than once per day.
+
+* Example:
+
+<?php
+	# No cache headers
+	header("Expires: Mon, 05 June 2001 05:06:07 GMT");
+  	header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+    header('Cache-Control: pre-check=0, post-check=0, max-age=0');
+	header("Cache-Control: no-cache, must-revalidate");
+	header("Pragma: no-cache");
+
+	include_once "class.AbsAtomReader10.php";
+
+	$xml = new AbsAtomReader10();
+	$xml->Load('atom_1.xml');	// feed stored on your host
+//	$xml->Load('http://weblogs.asp.net/scottgu/atom.aspx');	// feed located on other host
+
+?>
+
+
+* final public function GetBaseTags()
+	This function selects from the $_doc variable the base tags and returns the result as an associated array.
+	What are base tags? Let's take a look at the following atom 1.0 xml feed template document:
+
+<?xml version="1.0" encoding="utf-8"?>
+<feed>
+  <id></id>
+  <title></title>
+  <subtitle></subtitle>
+  <updated></updated>
+  <link href="" rel="" />
+  <author>
+    <name></name>
+	<email></email>
+  </author>
+  <entry>
+    <id></id>
+    <title></title>
+    <link href=""/>
+    <updated></updated>
+    <summary></summary>
+  </entry>
+</feed>
+
+	What I describe as base tags are the following:
+<id></id>
+<title></title>
+<subtitle></subtitle>
+<updated></updated>
+<link href="" rel="" />
+<author>
+	<name></name>
+	<email></email>
+</author>
+
+Basically, every tag that's not included in the <entry> tag.
+
+* Example:
+
+<?php
+	# No cache headers
+	header("Expires: Mon, 05 June 2001 05:06:07 GMT");
+  	header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+    header('Cache-Control: pre-check=0, post-check=0, max-age=0');
+	header("Cache-Control: no-cache, must-revalidate");
+	header("Pragma: no-cache");
+
+	include_once "class.AbsAtomReader10.php";
+
+	$xml = new AbsAtomReader10();
+	$xml->Load('xml/atom_1.xml');
+
+	// Get Base Tags
+	$baseTags = $xml->GetBaseTags();
+	if (is_array($baseTags) and count($baseTags)>0)
+	{
+		echo '<pre>';
+		print_r($baseTags);
+		echo '</pre>';
+	}
+?>
+
+
+Running the code above, the result should be the following array:
+<?php
+Array
+(
+    [title] => ATOM 1.0 Example Feed
+    [link] => Array
+        (
+            [href] => http://example.org/
+            [rel] => 
+        )
+
+    [updated] => 2005-09-02T18:30:02Z
+    [author] => Array
+        (
+            [name] => John Doe
+            [email] => john-doe@mail.somewhere
+        )
+
+    [id] => urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6
+)
+?>
+
+
+
+* final public function GetEntries( $maxLimit = 0 )
+	This function selects from the $_doc variable all the entries found in the <entry> tags and returns them as an associated array unless a max limit is specified.
+
+* Example:
+
+<?php
+	# No cache headers
+	header("Expires: Mon, 05 June 2001 05:06:07 GMT");
+  	header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+    header('Cache-Control: pre-check=0, post-check=0, max-age=0');
+	header("Cache-Control: no-cache, must-revalidate");
+	header("Pragma: no-cache");
+
+	include_once "class.AbsAtomReader10.php";
+
+	$xml = new AbsAtomReader10();
+	$xml->Load('xml/atom_1.xml');
+
+	// Get All Entries
+	$entries = $xml->GetEntries();
+	if (is_array($entries) and count($entries)>0)
+	{
+		echo '<pre>';
+		print_r($entries);
+		echo '</pre>';
+	}
+?>
+
+will output something like this:
+
+<?php
+Array
+(
+    [entry_0] => Array
+        (
+            [id] => urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a
+            [title] => Entry 1
+            [link] => #
+            [updated] => 2005-09-02T18:30:02Z
+            [summary] => Some text.
+        )
+
+    [entry_1] => Array
+        (
+            [id] => urn:uuid:8eb00d01-d632-40d4-8861-f2ed613f2c30
+            [title] => Entry 2
+            [link] => #
+            [updated] => 2005-09-01T12:15:00Z
+            [summary] => Some more text
+        )
+
+    [entry_2] => Array
+        (
+            [id] => urn:uuid:8eb00d01-d632-40d4-8861-f2ed613f2c30
+            [title] => Entry 3
+            [link] => #
+            [updated] => 2005-09-01T12:15:00Z
+            [summary] => More more text
+        )
+
+)
+?>
+
+ To retrieve only a limit number of results you should specify that number, like this:
+<?php
+	// Get only the first 2 entries
+	$entries = $xml->GetEntries( 2 );
+?>
+
+
+* final public function GetAll()
+	This function selects everything from the $_doc variable and returns the result as an associated array.
+
+* Example:
+
+<?php
+	# No cache headers
+	header("Expires: Mon, 05 June 2001 05:06:07 GMT");
+  	header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+    header('Cache-Control: pre-check=0, post-check=0, max-age=0');
+	header("Cache-Control: no-cache, must-revalidate");
+	header("Pragma: no-cache");
+
+	include_once "class.AbsAtomReader10.php";
+
+	$xml = new AbsAtomReader10();
+	$xml->Load('xml/atom_1.xml');
+
+	// Get ALL
+	$all = $xml->GetAll();
+	if (is_array($all) and count($all)>0)
+	{
+		echo '<pre>';
+		print_r($all);
+		echo '</pre>';
+	}
+?>
+
+will output something like this:
+
+<?php
+Array
+(
+    [title] => ATOM 1.0 Example Feed
+    [link] => Array
+        (
+            [href] => #
+            [rel] => self
+        )
+
+    [updated] => 2005-09-02T18:30:02Z
+    [author] => Array
+        (
+            [name] => John Doe
+            [email] => john-doe@mail.somewhere
+        )
+
+    [id] => urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6
+    [entry_0] => Array
+        (
+            [id] => urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a
+            [title] => Entry 1
+            [link] => #
+            [updated] => 2005-09-02T18:30:02Z
+            [summary] => Some text.
+        )
+
+    [entry_1] => Array
+        (
+            [id] => urn:uuid:8eb00d01-d632-40d4-8861-f2ed613f2c30
+            [title] => Entry 2
+            [link] => #
+            [updated] => 2005-09-01T12:15:00Z
+            [summary] => Some more text
+        )
+
+    [entry_2] => Array
+        (
+            [id] => urn:uuid:8eb00d01-d632-40d4-8861-f2ed613f2c30
+            [title] => Entry 3
+            [link] => #
+            [updated] => 2005-09-01T12:15:00Z
+            [summary] => More more text
+        )
+)
+?>

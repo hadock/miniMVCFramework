@@ -1,0 +1,104 @@
+/* 
+    Document   : payment
+    Created on : 23-10-2011, 12:16:33 AM
+    Author     : hadock
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.form #folio{
+    width: 90px;
+}
+.form .action-buttons{
+    float: left;
+    margin-left: 10px;
+}
+.search{
+    display: none;
+}
+.clientInfo{
+    display: none;
+}
+/* formulario para la busqueda de cobrador */
+.form #chargeman{
+    width: 164px;
+    margin-bottom: 1px;
+}
+.form span{
+    float: left;
+}
+.selectedchargeman{
+    display: none;
+}
+.selectedSeller span{
+    float: none;
+}
+.selectedSeller p{
+    margin-top: 0;
+}
+.form #chargeman{
+    width: 164px;
+    margin-bottom: 1px;
+}
+.form #searchAttributes{
+    margin-bottom: 1px;
+    margin-left: 0;
+    width: 600px;
+}
+.searchResult{
+    display: none;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border: 1px solid #BBBBBB;
+    margin-bottom: 10px;
+    float: left;
+    padding-top: 0px;
+    margin-left: 9px;
+    width: 177px;
+    z-index: 2000;
+    position: absolute;
+    margin-top: 25px;
+    overflow: hidden;
+}
+.listResult{
+    list-style: none outside none;
+    padding-left: 0em;
+}
+.dropdown{
+    background: -moz-linear-gradient(center top , #BABABA, #E1E1E1) repeat scroll 0 0 transparent;
+}
+.dropdown:hover, .dropdown span:hover, .dropdown p:hover{
+    background: -moz-linear-gradient(center top , #FAFABA, #E1E1E1) repeat scroll 0 0 transparent;
+    cursor: pointer;
+}
+.selectedchargeman span{
+    float: none;
+}
+.selectedchargeman p{
+    margin-top: 0;
+}
+
+/* fin del formulario de busqueda para cobrador */
+
+.subscriptionItems td{
+    text-align: center;
+}
+.paymentItems td{
+    text-align: center;
+}
+#total{
+    text-align: right;
+}
+#total span{
+    float: right;
+}
+.footAmount span{
+    float: right;
+}
+#form-observations textarea{
+    width: 165px;
+}

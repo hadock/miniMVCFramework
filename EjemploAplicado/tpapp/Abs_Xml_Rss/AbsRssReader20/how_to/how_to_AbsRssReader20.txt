@@ -1,0 +1,241 @@
+This file describes the usage of the following class:
+	* AbsRssReader20
+
+
+* class AbsRssReader20
+	This class can be used to read an RSS 2.0 xml feed document.
+
+
+* Protected Properties
+	* $_doc
+	* $_loaded
+
+
+* Public Methods
+	* Load( $filePath )
+	* GetChannelTags()
+	* GetItems( $maxLimit = 0 )
+	* GetAll()
+
+
+
+* final public function Load( $filePath )
+	Loads the specified xml feed and assigns the content to the $_doc variable.
+	It can reside either locally or remotely. You should cache it if your blog doesn't get updated more than once per day.
+
+* Example:
+
+<?php
+	include_once "class.AbsRssReader20.php";
+
+	$xml = new AbsRssReader20();
+
+	$xml->Load('xml/rss_2.xml');	// feed stored on your host
+	$xml->Load('http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml');	// feed located on other host
+?>
+
+
+* final public function GetChannelTags()
+	This function selects from the $_doc variable the channel tags and returns the result as an associated array.
+
+* Example:
+
+<?php
+	# No cache headers
+	header("Expires: Mon, 05 June 2001 05:06:07 GMT");
+  	header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+    header('Cache-Control: pre-check=0, post-check=0, max-age=0');
+	header("Cache-Control: no-cache, must-revalidate");
+	header("Pragma: no-cache");
+
+	include_once "class.AbsRssReader20.php";
+
+	$xml = new AbsRssReader20();
+	$xml->Load('xml/rss_2.xml');
+
+	// Get Channel Tags
+	$chTags = $xml->GetChannelTags();
+	if (is_array($chTags) and count($chTags)>0)
+	{
+		echo '<pre>';
+		echo '<strong>Get Channel Tags</strong><hr size="1" />';
+		print_r($chTags);
+		echo '</pre>';
+	}
+?>
+
+
+Running the code above, the result should be the following array:
+<?php
+Array
+(
+    [title] => Post 3
+    [link] => http://blog-url-here/post.php?pid=9
+    [description] => Posts's short description goes here
+    [pubDate] => Sun, 10 Apr 2009 02:01:52 GMT
+    [generator] => Blog Name Here
+    [language] => en-us
+    [dc:publisher] => Costin Trifan
+    [copyright] => Copyright (c) 2008 Costin Trifan. All rights reserved. blah blah..
+    [slash:comments] => 200
+    [comments] => http://blog-name-here/post.php?pid=9#comments
+    [category] => SOFTWARE
+)
+?>
+
+
+* final public function GetItems( $maxLimit = 0 )
+	This function selects from the $_doc variable all the entries found in the <item> tags and returns them as an associated array unless a max limit is specified.
+
+* Example:
+
+<?php
+	# No cache headers
+	header("Expires: Mon, 05 June 2001 05:06:07 GMT");
+  	header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+    header('Cache-Control: pre-check=0, post-check=0, max-age=0');
+	header("Cache-Control: no-cache, must-revalidate");
+	header("Pragma: no-cache");
+
+	include_once "class.AbsRssReader20.php";
+
+	$xml = new AbsRssReader20();
+	$xml->Load('xml/rss_2.xml');
+
+	// Get Items
+	$chItems = $xml->GetItems();
+	if (is_array($chItems) and count($chItems)>0)
+	{
+		echo '<pre>';
+		echo '<strong>Get Items</strong><hr size="1" />';
+		print_r($chItems);
+		echo '</pre>';
+	}
+?>
+
+will output something like this:
+
+<?php
+Array
+(
+    [item_0] => Array
+        (
+            [title] => Post 1
+            [link] => http://blog-url-here/post.php?pid=11
+            [description] => Posts's short description goes here
+            [slash:comments] => 40
+            [comments] => http://blog-name-here/post.php?pid=11#comments
+            [pubDate] => Sun, 12 Apr 2009 02:01:52 GMT
+            [category] => PHP
+        )
+
+    [item_1] => Array
+        (
+            [title] => Post 2
+            [link] => http://blog-url-here/post.php?pid=10
+            [description] => Posts's short description goes here
+            [slash:comments] => 120
+            [comments] => http://blog-name-here/post.php?pid=10#comments
+            [pubDate] => Sun, 11 Apr 2009 02:01:52 GMT
+            [category] => WEB
+        )
+
+    [item_2] => Array
+        (
+            [title] => Post 3
+            [link] => http://blog-url-here/post.php?pid=9
+            [description] => Posts's short description goes here
+            [slash:comments] => 200
+            [comments] => http://blog-name-here/post.php?pid=9#comments
+            [pubDate] => Sun, 10 Apr 2009 02:01:52 GMT
+            [category] => SOFTWARE
+        )
+)
+?>
+
+ To retrieve only a limit number of results you should specify that number, like this:
+<?php
+	// Get only the first 2 entries
+	$entries = $xml->GetItems( 2 );
+?>
+
+
+* final public function GetAll()
+	This function selects everything from the $_doc variable and returns the result as an associated array.
+
+* Example:
+
+<?php
+	# No cache headers
+	header("Expires: Mon, 05 June 2001 05:06:07 GMT");
+  	header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+    header('Cache-Control: pre-check=0, post-check=0, max-age=0');
+	header("Cache-Control: no-cache, must-revalidate");
+	header("Pragma: no-cache");
+
+	include_once "class.AbsRssReader20.php";
+
+	$xml = new AbsRssReader20();
+	$xml->Load('xml/rss_2.xml');
+
+	// Get ALL
+	$all = $xml->GetAll();
+	if (is_array($all) and count($all)>0)
+	{
+		echo '<pre>';
+		echo '<strong>Get ALL</strong><hr size="1" />';
+		print_r($all);
+		echo '</pre>';
+	}
+?>
+
+will output something like this:
+
+<?php
+Array
+(
+    [title] => Post 3
+    [link] => http://blog-url-here/post.php?pid=9
+    [description] => Posts's short description goes here
+    [pubDate] => Sun, 10 Apr 2009 02:01:52 GMT
+    [generator] => Blog Name Here
+    [language] => en-us
+    [dc:publisher] => Costin Trifan
+    [copyright] => Copyright (c) 2008 Costin Trifan. All rights reserved. blah blah..
+    [slash:comments] => 200
+    [comments] => http://blog-name-here/post.php?pid=9#comments
+    [category] => SOFTWARE
+    [item_0] => Array
+        (
+            [title] => Post 1
+            [link] => http://blog-url-here/post.php?pid=11
+            [description] => Posts's short description goes here
+            [slash:comments] => 40
+            [comments] => http://blog-name-here/post.php?pid=11#comments
+            [pubDate] => Sun, 12 Apr 2009 02:01:52 GMT
+            [category] => PHP
+        )
+
+    [item_1] => Array
+        (
+            [title] => Post 2
+            [link] => http://blog-url-here/post.php?pid=10
+            [description] => Posts's short description goes here
+            [slash:comments] => 120
+            [comments] => http://blog-name-here/post.php?pid=10#comments
+            [pubDate] => Sun, 11 Apr 2009 02:01:52 GMT
+            [category] => WEB
+        )
+
+    [item_2] => Array
+        (
+            [title] => Post 3
+            [link] => http://blog-url-here/post.php?pid=9
+            [description] => Posts's short description goes here
+            [slash:comments] => 200
+            [comments] => http://blog-name-here/post.php?pid=9#comments
+            [pubDate] => Sun, 10 Apr 2009 02:01:52 GMT
+            [category] => SOFTWARE
+        )
+)
+?>

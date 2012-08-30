@@ -1,0 +1,38 @@
+This file describes the usage of the following classes:
+	* AbsAtomReader10
+	* AbsAtomWriter10
+	* AbsRssReader20
+	* AbsRssWriter20
+
+* Package
+	Abs_Xml_Rss
+
+
+* General info
+
+All classes' methods are public and have been marked as final but you can still add extra functionality by simply extending the class and adding your own methods.
+There are only two static properties defined(marked as protected), one which is present in all classes and the other one only in the AbsAtomReader10 and AbsRssReader20 classes.
+These are:
+	* $_doc : this variable holds a reference to the DOMDocument class used to parse the loaded xml document,
+	* $_loaded : this variable will have the boolean value TRUE if the xml document has been loaded, otherwise FALSE.
+
+
+
+* class AbsAtomReader10
+	This class can be used to read an ATOM 1.0 xml feed document.
+
+
+* class AbsAtomWriter10
+	This class can be used to create an ATOM 1.0 xml feed document.
+
+
+* class AbsRssReader20
+	This class can be used to read an RSS 2.0 xml feed document.
+
+
+* class AbsRssWriter20
+	This class can be used to create an RSS 2.0 xml feed document.
+
+
+
+For a detailed info about how to use these classes, please see the additional 'how to' files.

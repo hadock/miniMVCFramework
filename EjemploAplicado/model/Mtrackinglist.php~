@@ -1,0 +1,47 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of Mtrackinglist
+ *
+ * @author hadock
+ */
+class Mtrackinglist extends Mdbconstantsquerys {
+    
+    protected function traejuegos($cliente = '', $soloactivos = true, $lista=20){
+        if($soloactivos){
+            $estado_juego = '1';
+        }else{
+            $estado_juego = '0';
+        }
+        
+        if(strlen($cliente)>7){
+            $filtroCLiente = " AND c.id_cliente = '$cliente'";
+        }else{
+            $filtroCLiente = "";
+        }
+        
+        $query = "SELECT j.id_juego, u.nombre_usuario, g.nombre_juego, c.nombre_cliente, c.des_categoria,
+                        DATE(j.fecha_hora_inicio) as fecha_inicio, TIME(j.fecha_hora_inicio) as hora_inicio
+                  FROM tbl_juego j, tbl_usuario u, tbl_tipo_juego g, tbl_cliente c
+                  WHERE j.fk_id_usuario = u.id_usuario AND j.fk_tipo_juego = g.id_tipo_juego AND j.fk_cliente = c.id_cliente
+                        AND j.estado_juego = $estado_juego $filtroCLiente LIMIT 0,$lista";
+        $resultado = $this->Query($query);
+        $return = array();
+        
+        while($fila = $this->FetchAssoc($resultado)){
+            $apuestas = $this->selectQuery("tbl_transaccion", array("sum(monto_apuesta) as monto_apuesta"), array("AND" => array("id_juego = {$fila['id_juego']}")));
+            $monto_apuesta = $apuestas['tbl_transaccion'][0]['monto_apuesta'];
+            $fila['monto_acumulado'] = number_format($monto_apuesta);
+            $return[] = $fila;
+        }
+
+       return $return;
+    }
+}
+
+?>

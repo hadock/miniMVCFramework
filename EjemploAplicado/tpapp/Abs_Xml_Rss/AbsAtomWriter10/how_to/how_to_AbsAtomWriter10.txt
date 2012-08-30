@@ -1,0 +1,181 @@
+This file describes the usage of the following class:
+	* AbsAtomWriter10
+
+
+
+* class AbsAtomWriter10
+	This class can be used to create an RSS 2.0 xml feed document.
+
+
+* Protected Properties
+	* $_doc	: Holds the feed's content
+
+
+* Public Methods
+	* StartDocument( $xmlStylesheetFile = '' )
+	* AddNamespaces( $xmlns = array() )
+	* AddBaseTags( $title, $subtitle, $link_href, $link_rel='self', $date_updated, $author_name, $author_email='', $id=''  )
+	* AddEntry( $title, $link_href, $date_updated, $summary, $id='' )
+	* EndDocument()
+	* Display()
+	* GetDocument()
+	* SaveDocument( $dirPath, $fileName )
+
+
+
+* final public function StartDocument( $xmlStylesheetFile = '' )
+	Starts the xml document. The optional argument is the path to the xml stylesheet file.
+
+* Example:
+
+<?php
+	include "class.AbsAtomWriter10.php";
+
+	$xml = new AbsAtomWriter10();
+	
+	// START DOCUMENT
+	$xml->StartDocument('xsl_stylesheet.xsl');
+?>
+
+will have as a result:
+
+<?php
+	<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="xsl_stylesheet.xsl"?>
+	<feed xmlns="http://www.w3.org/2005/Atom">
+?>
+
+
+* final public function AddNamespaces( $xmlns = array() )
+	This function adds the provided namespaces to the document. These are optional but the function call isn't, because it closes the feed tag.
+
+* Example:
+
+<?php
+	// ADD NAMESPACES
+	$xml->AddNamespaces();
+?>
+
+will have as a result:
+<?php
+	>
+?>
+
+
+* final public function AddBaseTags( $title, $subtitle, $link_href, $link_rel='self', $date_updated, $author_name, $author_email='', $id=''  )
+	This function adds the base tags.
+
+* Example:
+
+<?php
+		// ADD BASE TAGS
+	$xml->AddBaseTags('June Framework Blog', 'Latest entries on: June Framework Blog',
+					  	'http://june-js.com/blog/', 'self', 'Mon, 20 Apr 2009 22:00:40', 'Costin Trifan');
+?>
+
+will have as a result:
+<?php
+	<title>June Framework Blog</title>
+	<subtitle>Latest entries on: June Framework Blog</subtitle>
+	<updated>Mon, 20 Apr 2009 22:00:40</updated>
+	<link href="http://june-js.com/blog/" rel="self" />
+	<author>
+		<name>Costin Trifan</name>
+		<email></email>
+	</author>
+	<id></id>
+?>
+
+
+* final public function AddEntry( $title, $link_href, $date_updated, $summary, $id='' )
+	This function adds the provided entry tags to the document.
+
+* Example:
+
+<?php
+	// ADD ENTRIES
+	$c1 = "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis
+doloribus asperiores repellat";
+
+	$c2 = "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis
+doloribus asperiores repellat";
+
+	$xml->AddEntry('AbsTemplate - A simple PHP Template Engine', 'http://june-js.com/blog/post.php?pid=11', 'Sun, 12 Apr 2009 02:01:52 GMT', $c1);
+	$xml->AddEntry('XLog - A Log class for PHP', 'http://june-js.com/blog/post.php?pid=10', 'Wed, 18 Mar 2009 14:05:29', $c2);
+?>
+
+will have as a result:
+<?php
+	<entry>
+		<id></id>
+		<title>AbsTemplate - A simple PHP Template Engine</title>
+		<link href="http://june-js.com/blog/post.php?pid=11" />
+		<updated>Sun, 12 Apr 2009 02:01:52 GMT</updated>
+		<summary><![CDATA[Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis
+doloribus asperiores repellat]]></summary>
+	</entry>
+
+	<entry>
+		<id></id>
+		<title>XLog - A Log class for PHP</title>
+		<link href="http://june-js.com/blog/post.php?pid=10" />
+		<updated>Wed, 18 Mar 2009 14:05:29</updated>
+		<summary><![CDATA[Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis
+doloribus asperiores repellat]]></summary>
+	</entry>
+?>
+
+Note that you should escape special characters before adding them into the document.
+
+
+* final public function EndDocument()
+	This function adds the closing document's tags.
+
+* Example:
+
+<?php
+	// END DOCUMENT
+	$xml->EndDocument();
+?>
+
+will have as a result:
+<?php
+	</feed>
+?>
+
+
+
+* final public function Display()
+	This function will display the generated xml feed.
+
+* Example:
+
+<?php
+	// DISPLAY CONTENT
+	$xml->Display();
+?>
+
+
+* final public function GetDocument()
+	This function returns the content of the document.
+
+* Example:
+
+<?php
+	// GET DOCUMENT
+	$content = $xml->GetDocument();
+?>
+
+Now, the $content variable will contain the generated xml document;
+
+
+
+
+* final public function SaveDocument( $dirPath, $fileName )
+	This function will save the generated xml feed into the specified file($fileName) in the directory($dirPath).
+
+* Example:
+
+<?php
+	// SAVE THE FEED'S CONTENT INTO AN XML FILE
+	$xml->SaveDocument(getcwd(),'atom_1.xml');
+?>
