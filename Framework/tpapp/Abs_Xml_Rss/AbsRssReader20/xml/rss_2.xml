@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="xsl_stylesheet.xsl"?><rss version="2.0"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	><channel>
+<title>Latest entries on: Blog Name Here</title>
+<link>http://blog-url-here/</link>
+<description>Coding is fun!</description>
+<pubDate>Mon, 10 Apr 2009 22:00:40</pubDate>
+<generator>Blog Name Here</generator>
+<language>en-us</language>
+<dc:publisher>Costin Trifan</dc:publisher>
+<copyright>Copyright (c) 2008 Costin Trifan. All rights reserved. blah blah..</copyright>
+
+<item>
+	<title>Post 1</title>
+	<link>http://blog-url-here/post.php?pid=11</link>
+	<description><![CDATA[Posts's short description goes here]]></description>
+	<slash:comments>40</slash:comments>
+	<comments>http://blog-name-here/post.php?pid=11#comments</comments>
+	<pubDate>Sun, 12 Apr 2009 02:01:52 GMT</pubDate>
+	<category>PHP</category>
+</item>
+
+<item>
+	<title>Post 2</title>
+	<link>http://blog-url-here/post.php?pid=10</link>
+	<description><![CDATA[Posts's short description goes here]]></description>
+	<slash:comments>120</slash:comments>
+	<comments>http://blog-name-here/post.php?pid=10#comments</comments>
+	<pubDate>Sun, 11 Apr 2009 02:01:52 GMT</pubDate>
+	<category>WEB</category>
+</item>
+
+<item>
+	<title>Post 3</title>
+	<link>http://blog-url-here/post.php?pid=9</link>
+	<description><![CDATA[Posts's short description goes here]]></description>
+	<slash:comments>200</slash:comments>
+	<comments>http://blog-name-here/post.php?pid=9#comments</comments>
+	<pubDate>Sun, 10 Apr 2009 02:01:52 GMT</pubDate>
+	<category>SOFTWARE</category>
+</item>
+
+</channel></rss>

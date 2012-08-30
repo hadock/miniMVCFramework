@@ -1,0 +1,24 @@
+.search{
+    display: none;
+}
+.tabs a{
+    width: 200px;
+}
+#form-clientDetails span {
+    float: left;
+}
+#form-addClientObservation textarea{
+    width: 95%;
+}
+#form-addClientObservation button{
+    float: right;
+}
+#form-addSaleObservation textarea{
+    width: 95%;
+}
+#form-addSaleObservation button{
+    float: right;
+}
+.sales td{
+    text-align: center;
+}

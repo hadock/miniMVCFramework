@@ -1,0 +1,214 @@
+This file describes the usage of the following class:
+	* AbsRssWriter20
+
+
+
+* class AbsRssWriter20
+	This class can be used to create an RSS 2.0 xml feed document.
+
+
+* Protected Properties
+	* $_doc	: Holds the feed's content
+
+
+* Public Methods
+	* StartDocument( $xmlStylesheetFile = '' )
+	* AddNamespaces( $xmlns = array() )
+	* AddChannelTags( array $channelTags )
+	* AddItems( $itemTags = array() )
+	* EndDocument()
+	* Display()
+	* GetDocument()
+	* SaveDocument( $dirPath, $fileName )
+
+
+
+* final public function StartDocument( $xmlStylesheetFile = '' )
+	Starts the xml document. The optional argument is the path to the xml stylesheet file.
+
+* Example:
+
+<?php
+	include "class.AbsRssWriter20.php";
+
+	$xml = new AbsRssWriter20();
+	
+	// START DOCUMENT
+	$xml->StartDocument('xsl_stylesheet.xsl');
+?>
+
+will have as a result:
+
+<?php
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="xsl_stylesheet.xsl"?><rss version="2.0"
+?>
+
+
+* final public function AddNamespaces( $xmlns = array() )
+	This function adds the provided namespaces to the document. These are optional.
+
+* Example:
+
+<?php
+	// ADD NAMESPACES
+	$ns = array(
+		 'slash' => 'http://purl.org/rss/1.0/modules/slash/'
+		,'content' => 'http://purl.org/rss/1.0/modules/content/'
+		,'wfw' => 'http://wellformedweb.org/CommentAPI/'
+		,'dc' => 'http://purl.org/dc/elements/1.1/'
+	);
+	$xml->AddNamespaces($ns);
+?>
+
+will have as a result:
+<?php
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	>
+?>
+
+
+* final public function AddChannelTags( array $channelTags )
+	This function adds the provided channel tags.
+
+* Example:
+
+<?php
+	// ADD CHANNEL TAGS
+	$channelTags = array(
+		 'title' => 'Latest entries on: Blog Name Here'
+		,'link' => 'http://blog-url-here/'
+		,'description' => "Coding is fun!"
+		,'pubDate' => 'Mon, 10 Apr 2009 22:00:40'
+		,'generator' => 'Blog Name Here'
+		,'language' => 'en-us'
+		,'dc:publisher' => 'Costin Trifan'
+		,'copyright' => 'Copyright (c) 2008 Costin Trifan. All rights reserved. blah blah..
+	);
+	$xml->AddChannelTags($channelTags);
+?>
+
+will have as a result:
+<?php
+	<channel>
+	<title>Latest entries on: Blog Name Here</title>
+	<link>http://blog-url-here/</link>
+	<description>Coding is fun!</description>
+	<pubDate>Mon, 10 Apr 2009 22:00:40</pubDate>
+	<generator>Blog Name Here</generator>
+	<language>en-us</language>
+	<dc:publisher>Costin Trifan</dc:publisher>
+	<copyright>Copyright (c) 2008 Costin Trifan. All rights reserved. blah blah..</copyright>
+?>
+
+
+* final public function AddItems( $itemTags = array() )
+	This function adds the provided item tags to the document. The $itemTags parameter should be provided as a bidimensional array.
+
+* Example:
+
+<?php
+	// ADD ENTRIES // A bidimensional array is required!
+	$itemTags = array(
+		array(
+			 'title' => 'Post 1'
+			,'link' => 'http://blog-url-here/post.php?pid=11'
+			,'description' => "<![CDATA[Posts's short description goes here]]>"
+			,'slash:comments' => 40
+			,'comments' => 'http://blog-name-here/post.php?pid=11#comments'
+			,'pubDate' => 'Sun, 12 Apr 2009 02:01:52 GMT'
+			,'category' => 'PHP'
+		),
+		array(
+			 'title' => 'Post Title 2'
+			,'link' => 'http://blog-url-here/post.php?pid=10'
+			,'description' => "<![CDATA[Posts's short description goes here]]>"
+			,'slash:comments' => 120
+			,'comments' => 'http://blog-name-here/post.php?pid=10#comments'
+			,'pubDate' => 'Sun, 11 Apr 2009 02:01:52 GMT'
+			,'category' => 'WEB'
+		)
+	);
+	$xml->AddItems($itemTags);
+?>
+
+will have as a result:
+<?php
+	<item>
+		<title>Post 1</title>
+		<link>http://blog-url-here/post.php?pid=11</link>
+		<description><![CDATA[Posts's short description goes here]]></description>
+		<slash:comments>40</slash:comments>
+		<comments>http://blog-name-here/post.php?pid=11#comments</comments>
+		<pubDate>Sun, 12 Apr 2009 02:01:52 GMT</pubDate>
+		<category>PHP</category>
+	</item>
+
+	<item>
+		<title>Post 2</title>
+		<link>http://blog-url-here/post.php?pid=10</link>
+		<description><![CDATA[Posts's short description goes here]]></description>
+		<slash:comments>120</slash:comments>
+		<comments>http://blog-name-here/post.php?pid=10#comments</comments>
+		<pubDate>Sun, 11 Apr 2009 02:01:52 GMT</pubDate>
+		<category>WEB</category>
+	</item>
+?>
+
+Note that you should escape special characters before adding them into the document.
+
+
+* final public function EndDocument()
+	This function adds the closing document's tags.
+
+* Example:
+
+<?php
+	// END DOCUMENT
+	$xml->EndDocument();
+?>
+
+will have as a result:
+<?php
+	</channel></rss>
+?>
+
+
+
+* final public function Display()
+	This function will display the generated xml feed.
+
+* Example:
+
+<?php
+	// DISPLAY CONTENT
+	$xml->Display();
+?>
+
+
+* final public function GetDocument()
+	This function returns the content of the document.
+
+* Example:
+
+<?php
+	// GET DOCUMENT
+	$content = $xml->GetDocument();
+?>
+
+Now, the $content variable will contain the generated xml document;
+
+
+
+
+* final public function SaveDocument( $dirPath, $fileName )
+	This function will save the generated xml feed into the specified file($fileName) in the directory($dirPath).
+
+* Example:
+
+<?php
+	// SAVE THE FEED'S CONTENT INTO AN XML FILE
+	$xml->SaveDocument(getcwd(),'rss_2.xml');
+?>

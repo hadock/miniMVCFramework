@@ -1,0 +1,17 @@
+/* 
+    Document   : welcome
+    Created on : 24-10-2011, 11:23:03 PM
+    Author     : hadock
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.grid-view li{
+    width: 245px;
+}
+

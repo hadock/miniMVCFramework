@@ -1,0 +1,45 @@
+/* 
+    Document   : general.css
+    Created on : 09-06-2011, 11:49:24 AM
+    Author     : hadock
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+#popup {
+		background-image: none;
+                display: none;
+                left: 338px;
+                position: fixed;
+                top: 37.4px;
+                z-index: 10000;
+                color: #FFFFFF;
+                font-size: 11px;
+                padding: 35px;
+                width: 640px;
+	}
+
+	/* container for external content. uses vertical scrollbar, if needed */
+.contentWrap {
+        background-color: white;
+        overflow-x:hidden; overflow-y:scroll;
+}
+
+fieldset legend{
+    color: black;
+}
+
+.icon-contact {
+    background-image: url("../images/icons/vcard.png") !important;
+}
+.icon-sale {
+    background-image: url("../images/icons/sale.png") !important;
+}
+.icon-payment {
+    background-image: url("../images/icons/payment.png") !important;
+}

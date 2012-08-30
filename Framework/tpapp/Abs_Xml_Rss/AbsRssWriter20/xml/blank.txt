@@ -1,0 +1,1 @@
+In this folder will be created the xml feed if you run the example script.
